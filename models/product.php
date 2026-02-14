@@ -5,9 +5,13 @@ class Product
     private $table_name = "productos";
 
     public $id;
+    public $sku;
     public $name;
+    public $description;
     public $price;
+    public $stock;
     public $created_at;
+    public $updated_at;
 
     public function __construct($db)
     {
@@ -17,7 +21,8 @@ class Product
     public function create()
     {
         $query = "INSERT INTO " . $this->table_name . " 
-                  SET name=:name, price=:price, created_at=:created_at";
+                  SET sku=:sku, name=:name, description=:description, price=:price, stock=:stock, created_at=:created_at";
+
 
         $stmt = $this->conn->prepare($query);
 
