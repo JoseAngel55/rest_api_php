@@ -6,6 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../core/Router.php';
 require_once '../resources/v1/UserResource.php';
+require_once '../resources/v1/ProductResource.php';
 
 $scriptName = dirname($_SERVER['SCRIPT_NAME']);
 $basePath = $scriptName;
@@ -28,5 +29,4 @@ $router->addRoute('PUT', '/products/{id}', [$productResource, 'update']);
 $router->addRoute('DELETE', '/products/{id}', [$productResource, 'delete']);
 
 $router->dispatch();
-?>new ProductResource(),
 ?>
