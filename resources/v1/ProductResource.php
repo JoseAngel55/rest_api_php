@@ -1,6 +1,7 @@
 <?php
+require_once '../core/loginCheck.php';
 require_once '../config/database.php';
-require_once '../models/Product.php';
+require_once '../models/product.php';
 
 class ProductResource
 {
@@ -9,6 +10,7 @@ class ProductResource
 
     public function __construct()
     {
+        //LoginCheck::check();
         $database = new Database();
         $this->db = $database->getConnection();
         $this->product = new Product($this->db);
@@ -17,6 +19,7 @@ class ProductResource
     // GET /api/v1/products
     public function index()
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $stmt = $this->product->read();
@@ -48,6 +51,7 @@ class ProductResource
     // GET /api/v1/products/{id}
     public function show($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
         $this->product->id = $id;
         if ($this->product->readOne()) {
@@ -68,6 +72,7 @@ class ProductResource
     // POST /api/v1/products
     public function store()
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
         $data = json_decode(file_get_contents("php://input"));
         $this->product->name = $data->name;
@@ -84,6 +89,7 @@ class ProductResource
     // PUT /api/v1/products/{id}
     public function update($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
         $data = json_decode(file_get_contents("php://input"));
         $this->product->id = $id;
@@ -101,6 +107,7 @@ class ProductResource
     // DELETE /api/v1/products/{id}
     public function delete($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
         $this->product->id = $id;
         if ($this->product->delete()) {
@@ -112,3 +119,4 @@ class ProductResource
         }
     }
 }
+?>

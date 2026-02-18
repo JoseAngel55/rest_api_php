@@ -1,7 +1,7 @@
 <?php
-
 require_once '../config/database.php';
 require_once '../models/User.php';
+require_once '../core/loginCheck.php';
 
 class UserResource
 {
@@ -18,6 +18,7 @@ class UserResource
     // GET /api/v1/users
     public function index()
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $stmt = $this->user->read();
@@ -49,6 +50,7 @@ class UserResource
     // GET /api/v1/users/{id}
     public function show($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $this->user->id = $id;
@@ -72,6 +74,7 @@ class UserResource
     // POST /api/v1/users
     public function store()
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $data = json_decode(file_get_contents("php://input"));
@@ -99,6 +102,7 @@ class UserResource
     // PUT /api/v1/users/{id}
     public function update($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $data = json_decode(file_get_contents("php://input"));
@@ -125,6 +129,7 @@ class UserResource
     // DELETE /api/v1/users/{id}
     public function destroy($id)
     {
+        LoginCheck::check();
         header("Content-Type: application/json");
 
         $this->user->id = $id;
